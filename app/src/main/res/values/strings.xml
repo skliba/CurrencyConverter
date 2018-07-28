@@ -4,6 +4,7 @@
     <string name="to">To:</string>
     <string name="calculate">Calculate</string>
     <string name="amount">Amount</string>
-    <string name="sell_value">Sell value: %s</string>
-    <string name="buy_value">Buy value: %s</string>
+    <string name="result">Result: %s</string>
+    <string name="choose_currencies">Choose currencies you wish to transfer</string>
+    <string name="network_connection_lost">It seems your network connection is turned off. Please turn it on so you can use CurrencyConverter. Click anywhere on the screen to recheck whether the internet connection is back.</string>
 </resources>

@@ -4,5 +4,7 @@ interface BaseView {
     fun showProgress()
     fun hideProgress()
     fun initUi()
-    fun showError(message : String)
+    fun showError(message: String)
+    fun showNoConnectionLayout()
+    fun showContentLayout()
 }

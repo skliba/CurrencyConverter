@@ -1,8 +1,17 @@
 package com.example.stefano.currencyconverter.ui.convert
 
-interface ConvertPresenter {
+import com.example.stefano.currencyconverter.ui.base.BasePresenter
+import javax.inject.Inject
 
-}
+class ConvertPresenter @Inject constructor(
+        convertView: ConvertView
+) : BasePresenter<ConvertView>(convertView) {
 
-class ConvertPresenterImpl {
+    override fun cancel() {
+
+    }
+
+    fun test() {
+
+    }
 }

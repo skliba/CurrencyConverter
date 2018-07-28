@@ -9,7 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:name=".CurrencyConverterApp"
-        android:theme="@style/AppTheme">
+        android:theme="@style/NoActionBar">
         <activity android:name=".ui.convert.ConvertActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>

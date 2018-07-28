@@ -10,8 +10,4 @@ class ConvertPresenter @Inject constructor(
     override fun cancel() {
 
     }
-
-    fun test() {
-
-    }
 }

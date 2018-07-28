@@ -16,8 +16,6 @@ class ConvertActivity : BaseActivity(), ConvertView {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        presenter.test()
     }
 
     override fun initUi() {

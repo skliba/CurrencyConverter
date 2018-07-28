@@ -14,7 +14,6 @@ import timber.log.Timber
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
-
 private const val CONNECT_TIMEOUT_VALUE = 10L
 private const val WRITE_TIMEOUT_VALUE = 10L
 private const val READ_TIMEOUT_VALUE = 10L

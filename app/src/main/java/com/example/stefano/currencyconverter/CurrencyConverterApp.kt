@@ -4,6 +4,8 @@ import android.app.Activity
 import android.os.StrictMode
 import android.support.multidex.MultiDexApplication
 import android.support.v7.app.AppCompatDelegate
+import com.example.stefano.currencyconverter.di.AppComponent
+import com.example.stefano.currencyconverter.di.DaggerAppComponent
 import com.jakewharton.threetenabp.AndroidThreeTen
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
@@ -18,6 +20,7 @@ class CurrencyConverterApp : MultiDexApplication(), HasActivityInjector {
     override fun activityInjector(): AndroidInjector<Activity> = activityInjector
 
     companion object {
+        lateinit var appComponent: AppComponent
         lateinit var appInstance: CurrencyConverterApp
     }
 
@@ -36,7 +39,11 @@ class CurrencyConverterApp : MultiDexApplication(), HasActivityInjector {
     private fun initThreeTen() = AndroidThreeTen.init(this)
 
     private fun initDagger() {
-
+        appComponent = DaggerAppComponent
+                .builder()
+                .context(this)
+                .build()
+        appComponent.inject(this)
     }
 
     private fun initPolicies() {
@@ -69,5 +76,4 @@ class CurrencyConverterApp : MultiDexApplication(), HasActivityInjector {
             //Timber.plant(CrashReportingTree())
         }
     }
-
 }

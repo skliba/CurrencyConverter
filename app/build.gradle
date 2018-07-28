@@ -1,11 +1,11 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
 
 android {
 
     def STRING = 'String'
-    def BOOLEAN = 'Boolean'
 
     compileSdkVersion 27
     defaultConfig {
@@ -69,7 +69,7 @@ android {
         production {
             dimension 'api'
             signingConfig signingConfigs.release
-            buildConfigField STRING, "BASE_API_URL", "https://todo"
+            buildConfigField STRING, "BASE_API_URL", "\"https://todo\""
         }
 
     }

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/noNetworkLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:visibility="gone">
+
+    <ImageView
+        android:id="@+id/noWifiIcon"
+        android:layout_width="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_signal_wifi_off"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        android:layout_centerInParent="true"
+        android:textAlignment="center"
+        android:layout_below="@+id/noWifiIcon"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:text="@string/network_connection_lost"/>
+
+</RelativeLayout>

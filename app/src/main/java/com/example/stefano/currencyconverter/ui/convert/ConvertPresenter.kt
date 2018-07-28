@@ -5,9 +5,7 @@ import com.example.stefano.currencyconverter.data.models.ConvertModel
 import com.example.stefano.currencyconverter.ui.base.BasePresenter
 import com.example.stefano.currencyconverter.util.types.CurrencyType
 import com.example.stefano.currencyconverter.util.types.EmptyAmount
-import com.example.stefano.currencyconverter.util.types.stringRepresentation
 import org.threeten.bp.LocalDate
-import timber.log.Timber
 import javax.inject.Inject
 
 class ConvertPresenter @Inject constructor(
@@ -37,20 +35,17 @@ class ConvertPresenter @Inject constructor(
 
     }
 
-    fun calculateCurrencyTransfer(
-            fromCurrencySelection: CurrencyType,
-            toCurrencySelection: CurrencyType,
-            amount: String) {
-
-        Timber.e(
-                "${fromCurrencySelection.stringRepresentation} ${toCurrencySelection.stringRepresentation} $amount")
-
+    fun calculateCurrencyTransfer(fromCurrencySelection: CurrencyType,
+                                  toCurrencySelection: CurrencyType,
+                                  amount: String) {
         checkForErrors(amount)
+        
     }
 
     private fun checkForErrors(amount: String) {
         when {
             amount.isEmpty() -> view.showError(EmptyAmount)
+            amount == "0"    -> view.setResults(0, 0)
         }
     }
 }

@@ -88,4 +88,9 @@ class ConvertActivity : BaseActivity(), ConvertView {
     override fun showError(error: ConversionError) {
         amount.error = error.stringRepresentation
     }
+
+    override fun setResults(sell: Int, buy: Int) {
+        sellValue.text = getString(R.string.sell_value, sell.toString())
+        buyValue.text = getString(R.string.buy_value, buy.toString())
+    }
 }

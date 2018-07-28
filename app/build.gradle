@@ -1,10 +1,12 @@
 apply plugin: 'com.android.application'
-
 apply plugin: 'kotlin-android'
-
 apply plugin: 'kotlin-android-extensions'
 
 android {
+
+    def STRING = 'String'
+    def BOOLEAN = 'Boolean'
+
     compileSdkVersion 27
     defaultConfig {
         applicationId "com.example.stefano.currencyconverter"
@@ -14,19 +16,142 @@ android {
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
+
+    dexOptions {
+        javaMaxHeapSize "4g"
+    }
+
+    signingConfigs {
+        release {
+            Properties props = new Properties()
+            if (file('../local.properties').exists()) {
+                // if it doesn't exist, the props will all be null and the production builds will fail
+                props.load(new FileInputStream(file('../local.properties')))
+            }
+
+            storeFile file(defaultConfig.applicationId + '.jks')
+            storePassword props['keystore.storePass']
+            keyAlias props['keystore.keyAlias']
+            keyPassword props['keystore.keyPass']
+        }
+
+        development {
+            keyAlias 'development'
+            storeFile file('development.jks')
+            storePassword 'servis'
+            keyPassword 'servis'
+        }
+    }
+
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+
+        development {
+            signingConfig signingConfigs.development
+            debuggable true
+        }
+    }
+
+    flavorDimensions 'api'
+
+    productFlavors {
+        staging {
+            dimension 'api'
+            applicationIdSuffix '.staging'
+            signingConfig signingConfigs.development
+            buildConfigField STRING, "BASE_API_URL", "\"http://hnbex.eu/api/v1/\""
+
+        }
+
+        production {
+            dimension 'api'
+            signingConfig signingConfigs.release
+            buildConfigField STRING, "BASE_API_URL", "https://todo"
+        }
+
+    }
+
+    packagingOptions {
+        exclude 'META-INF/rxjava.properties'
     }
 }
 
+ext {
+    supportVersion = "27.1.1"
+    constraintLayoutVersion = "1.1.2"
+    multiDexVersion = "1.0.3"
+    firebaseJobDispatcherVersion = "0.8.5"
+    firebaseVersion = "12.0.1"
+    mapsUtilsVersion = "0.5"
+    retrofitVersion = "2.4.0"
+    okhttpLoggingInterceptor = "3.8.1"
+    glideVersion = "3.8.0"
+    daggerVersion = "2.14.1"
+    threeTenVersion = "1.0.5"
+    easyPermissionsVersion = "1.0.1"
+    gsonVersion = "2.8.2"
+    rxJavaVersion = "2.1.4"
+    rxKotlinVersion = "2.1.0"
+    rxAndroidVersion = "2.0.1"
+    timberVersion = "4.5.1"
+}
+
 dependencies {
+
+    // Local
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation"org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
-    implementation 'com.android.support:appcompat-v7:27.1.1'
-    implementation 'com.android.support.constraint:constraint-layout:1.1.2'
+
+    // Kotlin
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+
+    // Support
+    implementation "com.android.support:appcompat-v7:$supportVersion"
+    implementation "com.android.support:design:$supportVersion"
+    implementation "com.android.support:multidex:$multiDexVersion"
+    implementation "com.android.support:customtabs:$supportVersion"
+    implementation "com.android.support:recyclerview-v7:$supportVersion"
+    implementation "com.android.support.constraint:constraint-layout:$constraintLayoutVersion"
+
+    // Networking
+    implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
+    implementation "com.squareup.okhttp3:logging-interceptor:$okhttpLoggingInterceptor"
+    implementation "com.github.bumptech.glide:glide:$glideVersion"
+    implementation "com.google.code.gson:gson:$gsonVersion"
+    implementation "com.squareup.retrofit2:adapter-rxjava2:$retrofitVersion"
+    implementation "com.squareup.retrofit2:converter-scalars:$retrofitVersion"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofitVersion"
+
+    // Dagger
+    implementation "com.google.dagger:dagger:$daggerVersion"
+    implementation "com.google.dagger:dagger-android-support:$daggerVersion"
+    kapt "com.google.dagger:dagger-compiler:$daggerVersion"
+    kapt "com.google.dagger:dagger-android-processor:$daggerVersion"
+
+    // Rx
+    implementation "io.reactivex.rxjava2:rxjava:$rxJavaVersion"
+    implementation "io.reactivex.rxjava2:rxandroid:$rxAndroidVersion"
+    implementation "io.reactivex.rxjava2:rxkotlin:$rxKotlinVersion"
+
+    // Development
+    implementation "com.jakewharton.threetenabp:threetenabp:$threeTenVersion"
+    // here because Unit tests break when you don't have this in the project - https://github.com/JakeWharton/ThreeTenABP/issues/14
+    testImplementation("org.threeten:threetenbp:$threeTenVersion") {
+        exclude group: 'com.jakewharton.threetenabp', module: 'threetenabp'
+    }
+
+    // Ui
+    implementation 'com.eftimoff:android-pathview:1.0.8@aar'
+
+    // Permissions
+    implementation "pub.devrel:easypermissions:$easyPermissionsVersion"
+
+    // Logging
+    implementation "com.jakewharton.timber:timber:$timberVersion"
+
+    // Tests
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'

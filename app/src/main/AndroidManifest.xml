@@ -8,8 +8,9 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
+        android:name=".CurrencyConverterApp"
         android:theme="@style/AppTheme">
-        <activity android:name=".ConvertActivity">
+        <activity android:name=".ui.convert.ConvertActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 

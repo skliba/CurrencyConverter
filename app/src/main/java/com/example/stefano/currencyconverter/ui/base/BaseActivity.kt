@@ -36,6 +36,10 @@ abstract class BaseActivity : AppCompatActivity(), BaseView {
 
     }
 
+    override fun showError(message: String) {
+
+    }
+
     private fun initToolbar() {
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)

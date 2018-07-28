@@ -107,3 +107,6 @@ inline fun <reified T : Fragment> FragmentActivity.replaceFragment(@IdRes layout
             .replace(layoutId, fragment)
             .commitNow()
 }
+
+inline val <T> T.exhaustive: T
+    get() = this

@@ -1,6 +1,5 @@
 package com.example.stefano.currencyconverter.di
 
-import android.content.Context
 import com.example.stefano.currencyconverter.BuildConfig
 import com.example.stefano.currencyconverter.data.networking.ApiService
 import dagger.Module
@@ -23,7 +22,7 @@ class ApiModule {
 
     @Provides
     @Singleton
-    internal fun okHttpClient(context: Context): OkHttpClient {
+    internal fun okHttpClient(): OkHttpClient {
 
         val okHttpBuilder = OkHttpClient.Builder()
                 .connectTimeout(CONNECT_TIMEOUT_VALUE, TimeUnit.SECONDS)

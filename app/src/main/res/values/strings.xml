@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">CurrencyConverter</string>
+    <string name="from">From:</string>
+    <string name="to">To:</string>
+    <string name="calculate">Calculate</string>
+    <string name="amount">Amount</string>
+    <string name="sell_value">Sell value: %s</string>
+    <string name="buy_value">Buy value: %s</string>
 </resources>

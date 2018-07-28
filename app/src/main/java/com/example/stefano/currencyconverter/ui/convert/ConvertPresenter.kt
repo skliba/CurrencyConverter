@@ -39,7 +39,7 @@ class ConvertPresenter @Inject constructor(
                                   toCurrencySelection: CurrencyType,
                                   amount: String) {
         checkForErrors(amount)
-        
+
     }
 
     private fun checkForErrors(amount: String) {

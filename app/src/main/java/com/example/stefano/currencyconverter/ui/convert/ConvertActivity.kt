@@ -8,6 +8,8 @@ import com.example.stefano.currencyconverter.R
 import com.example.stefano.currencyconverter.ui.base.BaseActivity
 import com.example.stefano.currencyconverter.ui.base.BasePresenter
 import com.example.stefano.currencyconverter.ui.base.BaseView
+import com.example.stefano.currencyconverter.util.extensions.hide
+import com.example.stefano.currencyconverter.util.extensions.visible
 import com.example.stefano.currencyconverter.util.types.AUD
 import com.example.stefano.currencyconverter.util.types.ConversionError
 import com.example.stefano.currencyconverter.util.types.CurrencyType
@@ -87,10 +89,21 @@ class ConvertActivity : BaseActivity(), ConvertView {
 
     override fun showError(error: ConversionError) {
         amount.error = error.stringRepresentation
+        sellValue.hide()
+        buyValue.hide()
     }
 
     override fun setResults(sell: Int, buy: Int) {
-        sellValue.text = getString(R.string.sell_value, sell.toString())
-        buyValue.text = getString(R.string.buy_value, buy.toString())
+        amount.error = null
+
+        sellValue.apply {
+            visible()
+            text = getString(R.string.sell_value, sell.toString())
+        }
+
+        buyValue.apply {
+            visible()
+            text = getString(R.string.buy_value, buy.toString())
+        }
     }
 }

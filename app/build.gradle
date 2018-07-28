@@ -1,6 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
 
 android {
 
@@ -69,7 +70,7 @@ android {
         production {
             dimension 'api'
             signingConfig signingConfigs.release
-            buildConfigField STRING, "BASE_API_URL", "https://todo"
+            buildConfigField STRING, "BASE_API_URL", "\"https://todo\""
         }
 
     }

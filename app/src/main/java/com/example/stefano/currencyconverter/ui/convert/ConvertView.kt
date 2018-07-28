@@ -7,5 +7,5 @@ interface ConvertView : BaseView {
 
     fun updateCurrenciesList(currencyList: List<String>)
     fun showError(error: ConversionError)
-    fun setResults(sell: Int, buy: Int)
+    fun setConversionResult(sell: String)
 }

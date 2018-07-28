@@ -16,6 +16,7 @@ import com.example.stefano.currencyconverter.util.types.CurrencyType
 import com.example.stefano.currencyconverter.util.types.asCurrencyType
 import com.example.stefano.currencyconverter.util.types.stringRepresentation
 import kotlinx.android.synthetic.main.activity_convert.*
+import kotlinx.android.synthetic.main.no_network_layout.*
 import javax.inject.Inject
 
 class ConvertActivity : BaseActivity(), ConvertView {
@@ -35,10 +36,14 @@ class ConvertActivity : BaseActivity(), ConvertView {
         }
 
         override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-            presenter.calculateCurrencyTransfer(
-                    fromCurrency.selectedItem.toString().asCurrencyType,
-                    toCurrencySelection,
-                    amountValue.text.toString())
+            fromCurrencySelection = fromCurrency.selectedItem.toString().asCurrencyType
+
+            if (amountValue.text.isNotEmpty()) {
+                presenter.calculateCurrencyTransfer(
+                        fromCurrencySelection,
+                        toCurrencySelection,
+                        amountValue.text.toString())
+            }
         }
     }
 
@@ -49,9 +54,14 @@ class ConvertActivity : BaseActivity(), ConvertView {
         }
 
         override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-            presenter.calculateCurrencyTransfer(fromCurrencySelection,
-                                                toCurrency.selectedItem.toString().asCurrencyType,
-                                                amountValue.text.toString())
+            toCurrencySelection = toCurrency.selectedItem.toString().asCurrencyType
+
+            if (amountValue.text.isNotEmpty()) {
+                presenter.calculateCurrencyTransfer(
+                        fromCurrencySelection,
+                        toCurrencySelection,
+                        amountValue.text.toString())
+            }
         }
     }
 
@@ -70,6 +80,7 @@ class ConvertActivity : BaseActivity(), ConvertView {
     }
 
     override fun updateCurrenciesList(currencyList: List<String>) {
+        showContentLayout()
         val currenciesAdapter = ArrayAdapter<String>(this, R.layout.spinner_item, currencyList)
 
         fromCurrency.apply {
@@ -89,21 +100,28 @@ class ConvertActivity : BaseActivity(), ConvertView {
 
     override fun showError(error: ConversionError) {
         amount.error = error.stringRepresentation
-        sellValue.hide()
-        buyValue.hide()
+        resultValue.hide()
     }
 
-    override fun setResults(sell: Int, buy: Int) {
+    override fun setConversionResult(sell: String) {
         amount.error = null
 
-        sellValue.apply {
+        resultValue.apply {
             visible()
-            text = getString(R.string.sell_value, sell.toString())
+            text = getString(R.string.result, sell)
         }
+    }
 
-        buyValue.apply {
-            visible()
-            text = getString(R.string.buy_value, buy.toString())
+    override fun showNoConnectionLayout() {
+        noNetworkLayout.visible()
+        content.hide()
+        noNetworkLayout.setOnClickListener {
+            presenter.init()
         }
+    }
+
+    override fun showContentLayout() {
+        content.visible()
+        noNetworkLayout.hide()
     }
 }

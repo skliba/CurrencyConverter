@@ -16,6 +16,7 @@ object USD : CurrencyType()
 object BAM : CurrencyType()
 object EUR : CurrencyType()
 object PLN : CurrencyType()
+object HRK : CurrencyType()
 object Unknown : CurrencyType()
 
 val CurrencyType.stringRepresentation: String
@@ -34,6 +35,7 @@ val CurrencyType.stringRepresentation: String
         BAM     -> "BAM"
         EUR     -> "EUR"
         PLN     -> "PLN"
+        HRK     -> "HRK"
         Unknown -> "Unknown"
     }
 
@@ -53,5 +55,6 @@ val String.asCurrencyType: CurrencyType
         "BAM" -> BAM
         "EUR" -> EUR
         "PLN" -> PLN
+        "HRK" -> HRK
         else  -> Unknown
     }

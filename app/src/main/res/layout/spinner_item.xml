@@ -7,4 +7,5 @@
           android:textSize="15sp"
           android:textStyle="bold"
           android:textColor="@color/colorPrimary"
+          android:gravity="center"
           tools:text="CHF"/>
